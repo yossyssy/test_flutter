@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http; // httpという変数を通して、httpパッケージにアクセス
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:test_flutter/models/article.dart';
-import 'package:test_flutter/models/user.dart';
+// import 'package:test_flutter/models/user.dart';
 
 import '../widgets/article_container.dart';
 
@@ -24,7 +24,7 @@ class _SearchScreenState extends State<SearchScreen> {
         title: const Text('Qiita Search'),
       ),
       body: Column(
-        children: [
+        children: <Widget>[
           // 検索ボックス
           Padding(
             padding: const EdgeInsets.symmetric(
@@ -33,29 +33,28 @@ class _SearchScreenState extends State<SearchScreen> {
             ),
             child: TextField(
               style: const TextStyle(
-                fontSize: 18,
+                fontSize: 16,
                 color: Colors.black,
               ),
               decoration: const InputDecoration(
                 hintText: '検索ワードを入力してください',
+                hintStyle: TextStyle(
+                  fontSize: 16,
+                  color: Colors.black54,
+                  fontStyle: FontStyle.italic,
+                ),
               ),
-              onSubmitted: (String value) async {
+              onSubmitted: (value) async {
                 final results = await searchQiita(value); // 検索処理を実行する
                 setState(() => articles = results); // 検索結果を代入
               },
             ),
           ),
-          ArticleContainer(
-            article: Article(
-              title: 'テスト',
-              user: User(
-                id: 'qii-taro',
-                profileImageUrl:
-                    'https://firebasestorage.googleapis.com/v0/b/gs-expansion-test.appspot.com/o/unknown_person.png?alt=media',
-              ),
-              createdAt: DateTime.now(),
-              tags: ['Flutter', 'dart'],
-              url: 'https://example.com',
+          Expanded(
+            child: ListView(
+              children: articles
+                  .map((article) => ArticleContainer(article: article))
+                  .toList(),
             ),
           ),
         ],
