@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:test_flutter/models/article.dart';
+import 'package:intl/intl.dart';
 
 class ArticleContainer extends StatelessWidget {
   const ArticleContainer({
@@ -84,7 +86,8 @@ class ArticleContainer extends StatelessWidget {
                   children: [
                     CircleAvatar(
                       radius: 26,
-                      backgroundImage: NetworkImage(article.user.profileImageUrl),
+                      backgroundImage:
+                          NetworkImage(article.user.profileImageUrl),
                     ),
                     const SizedBox(height: 4),
                     Text(
